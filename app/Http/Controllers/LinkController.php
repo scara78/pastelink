@@ -161,7 +161,7 @@ class LinkController extends Controller
     	return [
     		'id' => $link->id,
     		'title' => $link->title,
-    		'content' => $this->linkify($link->content,array('http', 'mail'),['target'=>'_blank']),
+    		'content' => $link->content,
     		'views' => $link->views,
     		'date' => \Carbon\Carbon::parse($link->created_at)->format('d, M Y'),
     		'password' => $link->password
