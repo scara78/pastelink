@@ -3,4 +3,4 @@ Webiste pastelink sederhana yang dimana pengguna dapat menyimpan text dan link a
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Pastelink project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
