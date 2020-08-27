@@ -17,7 +17,7 @@
 					<i class="fas fa-eye"></i> views: {{ $views }}  <i class="fas fa-calendar ml-3"></i> {{ $date }}
 				</div>
 				<div class="box-content">
-					{!! Purifier::clean(nl2br($content)) !!}
+					{!! Purifier::clean(nl2br($content), array('AutoFormat.Linkify' => true)) !!}
 				</div>
 				@if($password != '')
 				<form action="{{ route('auth') }}" method="post" class="mt-3">
