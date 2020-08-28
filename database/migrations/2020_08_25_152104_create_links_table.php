@@ -15,11 +15,12 @@ class CreateLinksTable extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title', 100);
             $table->string('slug');
-            $table->string('content');
+            $table->text('content');
             $table->string('password')->nullable();
             $table->integer('views')->default(0);
+            $table->integer('visibility')->default(0);
             $table->timestamps();
         });
     }

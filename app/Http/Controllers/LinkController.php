@@ -6,6 +6,7 @@ use App\Link;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LinkRequest;
+use Carbon\Carbon;
 
 class LinkController extends Controller
 {
@@ -18,8 +19,14 @@ class LinkController extends Controller
     // show the content for each links
     public function get(link $link)
     {
+    	// add views value for every visitor
     	$link->increment('views');
-    	return view('index', $this->getLinkData($link));
+
+    	// get and filter the latest text
+    	$links = Link::where([['visibility', '=', 0], ['id', '!=', $link->id]])->latest()->limit(8)->get();
+
+    	// show the cpntent
+    	return view('index', $this->getLinkData($link, $links));
     }
 
     /**
@@ -28,25 +35,29 @@ class LinkController extends Controller
     * @param array $request
     * @param model $link 
     */
-    public function store(Request $request, Link $link)
+    public function store(LinkRequest $request, Link $link)
     {
-    	// validate request
-    	$request->validate([
-    		'content' => 'required|min:5'
-    	]);
-
     	// random string for url
-    	$random = $this->find_random($link);
+    	$random = $this->find_random();
 
     	// get all requests
     	$data = $request->all();
     	
-    	// assign slug from custom or random
+    	// assign additional information
     	$data['slug'] = (isset($request->custom_url)) ? \str::slug($request->custom_url) : $random;
-    	// assign title
     	$data['title'] = (isset($request->title)) ? $request->title : 'Untitled';
     	$data['password'] = (isset($request->password)) ? bcrypt($request->password) : '';
+    	$data['visibility'] = ($request->visibility == 'hidden') ? 1 : 0;
 
+    	// check again if slug is exists or not
+    	if(Link::where('slug', $data['slug'])->exists())
+    	{
+    		// sent to previous page when slug is exists
+    		session()->flash('url_exists', 'The URL already exists.');
+    		return redirect()->back();
+    	}
+
+    	// everything is okay and ready
     	// insert into database
     	$link->create($data);
 
@@ -106,28 +117,32 @@ class LinkController extends Controller
     /**
     * Find the random string for slug
     *
-    * @param model $model
     * @return string
     */
-    public function find_random($model)
+    public function find_random()
     {
+    	// generate new random string
     	$random = \Str::random(6);
 
-    	while($model->where('slug', $random)->exists()){
+    	// checking if slug is exists
+    	while(Link::where('slug', $random)->exists()){
+    		// generate again until available
     		$random = \Str::random(6);
     	}
+
     	return $random;
     }
 
-    public function getLinkData($link)
+    public function getLinkData($link, $links = array())
     {
     	return [
     		'id' => $link->id,
     		'title' => $link->title,
     		'content' => $link->content,
     		'views' => $link->views,
-    		'date' => \Carbon\Carbon::parse($link->created_at)->format('d, M Y'),
-    		'password' => $link->password
+    		'date' => Carbon::parse($link->created_at)->format('d, M Y'),
+    		'password' => $link->password,
+    		'links' => $links
     	];
     }
 }

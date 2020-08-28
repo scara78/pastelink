@@ -23,7 +23,9 @@
 				</div>
 				@csrf
 				@method('patch')
-			<button type="submit" class="btn btn-primary mt-2">Update</button>
+				<div class="text-center">
+					<button type="reset" value="" class="btn btn-outline-danger mt-2 mr-2">Reset</button> <button type="submit" class="btn btn-outline-primary mt-2">Update</button>
+				</div>
 			</div>
 		</div>
 	</div>

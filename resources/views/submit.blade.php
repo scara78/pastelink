@@ -32,6 +32,11 @@
 					</div>
 					<input type="text" class="form-control" name="custom_url" placeholder="Custom URL" id="url" disabled>
 				</div>
+				@if(session()->has('url_exists'))
+				<div class="text-danger">
+					{{ session()->get('url_exists') }}
+				</div>
+				@endif
 				<div class="text-secondary text-sm">
 					eg: abc will be -> {{ config('app.url') }}/abc
 				</div>
@@ -44,10 +49,24 @@
 					</div>
 					<input type="text" class="form-control" name="password" placeholder="Password" id="pass" disabled>
 				</div>
+				<div class="text-secondary mb-2">
+					For editable text
+				</div>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Visibility</span>
+					</div>
+					<select name="visibility" id="" class="form-control">
+						<option value="public">Public</option>
+						<option value="hidden">Hidden</option>
+					</select>
+				</div>
 			</div>
 		</div>
 		@csrf
-		<button type="submit" class="btn btn-primary mt-2">Publish</button>
+		<div class="text-center">
+			<button type="reset" value="" class="btn btn-outline-danger mt-2 mr-2">Reset</button> <button type="submit" class="btn btn-outline-primary mt-2">Publish</button>
+		</div>
 	</div>
 </div>
 </form>

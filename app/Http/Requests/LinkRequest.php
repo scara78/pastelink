@@ -24,7 +24,8 @@ class LinkRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|min:5'
+            'content' => 'required|min:5|max:10000',
+            'title' => 'max:100',
         ];
     }
 }

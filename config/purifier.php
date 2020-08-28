@@ -25,7 +25,6 @@ return [
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
             'HTML.Allowed'             => 'a[href|title|target],br',
-            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
             'AutoFormat.RemoveEmpty'   => true,
             'AutoFormat.Linkify' => true
         ],
