@@ -26,7 +26,9 @@ return [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
             'HTML.Allowed'             => 'a[href|title|target],br',
             'AutoFormat.RemoveEmpty'   => true,
-            'AutoFormat.Linkify' => true
+            'AutoFormat.Linkify' => true,
+            'HTML.Nofollow' => true,
+            'HTML.TargetBlank' => true,
         ],
         'test'    => [
             'Attr.EnableID' => 'true',
