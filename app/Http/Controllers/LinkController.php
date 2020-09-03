@@ -93,7 +93,11 @@ class LinkController extends Controller
     public function edit(Link $link)
     {
     	// show edit menu
-    	return view('edit', compact('link'));
+    	return view('edit', [
+            'link' => $link,
+            'histories' => $link->history,
+            'latest_hash' => $link->history()->latest()->limit(1)->get()
+        ]);
     }
 
     public function update(LinkRequest $request, link $link, History $history)
