@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Link;
+use App\{Link, History};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LinkRequest;
@@ -96,7 +96,7 @@ class LinkController extends Controller
     	return view('edit', compact('link'));
     }
 
-    public function update(LinkRequest $request, link $link)
+    public function update(LinkRequest $request, link $link, History $history)
     {
     	// checking the password & id before update it
     	if(!Hash::check(session('pass'), $link->password) && session('id') == $link->id)
@@ -104,6 +104,13 @@ class LinkController extends Controller
 
     	// get all data request
     	$data = $request->all();
+
+        $data_history = array(
+            'link_id' =>$link->id,
+            'hash' => md5(\Str::random())
+        );
+
+        $history->create($data_history);
 
     	// update into database
     	$link->update($data);
