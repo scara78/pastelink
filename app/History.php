@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
 {
-    //
+    public function link()
+    {
+    	return $this->belongsTo(Link::class);
+    }
 }
