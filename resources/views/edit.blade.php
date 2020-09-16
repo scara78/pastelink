@@ -13,7 +13,7 @@
 		@endif
 		<div class="card">
 			<div class="card-body">
-				<div class="h5 text-danger">{{ $latest_hash[0]->hash }}</div>
+				<div class="h5 text-danger">{{ $latest_hash[0]->hash ?? '' }}</div>
 				<div class="text-right mb-2">
 					<button type="button" class="btn btn-info btn-sm"><i class="fas fa-clock"></i> History</button>
 				</div>
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 mt-2">
 		<div class="card">
 			<div class="card-body">
 				<div class="card-title text-center">Advertisement</div>
