@@ -13,7 +13,7 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-md navbar-dark shadow-sm bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark shadow-sm bg-primary">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name') }}
